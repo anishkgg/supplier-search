@@ -23,8 +23,7 @@ public class SupplierController {
 	private SupplierService supplierService;
 
 	@PostMapping("/query")
-	public ResponseEntity<List<Supplier>> searchSuppliers(@RequestBody SearchParam searchParam, Pageable pageable) {
-		Page<Supplier> suppliers = supplierService.searchSuppliers(searchParam, pageable);
-		return ResponseEntity.ok(suppliers.getContent());
+	public ResponseEntity<Object> searchSuppliers(@RequestBody SearchParam searchParam, Pageable pageable) {
+		return supplierService.searchSuppliers(searchParam, pageable);
 	}
 }

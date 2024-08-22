@@ -1,17 +1,28 @@
 package com.makersharks.supplier.search.model;
 
-import jakarta.annotation.Nonnull;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Data
+import jakarta.annotation.Nonnull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class SearchParam {
 
 	@Nonnull
+	@JsonProperty("location")
 	private String location;
-	
+
 	@Nonnull
+	@JsonProperty("nature_of_business")
 	private String businessNature;
-	
+
 	@Nonnull
-    private String manufacturingProcess;
+	@JsonProperty("manufacturing_process")
+	private String manufacturingProcess;
 }

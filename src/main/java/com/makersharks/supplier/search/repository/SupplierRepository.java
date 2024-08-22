@@ -11,7 +11,7 @@ import com.makersharks.supplier.search.entity.Supplier;
 @Repository
 public interface SupplierRepository extends JpaRepository<Supplier, Long> {
 
-	@Query("SELECT supplier, process FROM Supplier supplier JOIN supplier.manufacturingProcesses process"
+	@Query("SELECT supplier FROM Supplier supplier JOIN supplier.manufacturingProcesses process"
 	         + " WHERE supplier.location = ?1 AND supplier.businessNature = ?2 AND process.processName = ?3")
 	Page<Supplier> findSuppliersBy(String location, String businessNature,
 			String manufacturingProcess, Pageable pageable);
