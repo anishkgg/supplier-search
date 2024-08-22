@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.makersharks.supplier.search.entity.Supplier;
+import com.makersharks.supplier.search.model.SearchParam;
 import com.makersharks.supplier.search.repository.SupplierRepository;
 
 @Service
@@ -14,8 +15,7 @@ public class SupplierService {
 	@Autowired
 	private SupplierRepository supplierRepository;
 
-	public Page<Supplier> searchSuppliers(String location, String businessNature, String manufacturingProcess,
-			Pageable pageable) {
-		return supplierRepository.findSuppliersBy(location, businessNature, manufacturingProcess, pageable);
+	public Page<Supplier> searchSuppliers(SearchParam searchParam, Pageable pageable) {
+		return supplierRepository.findSuppliersBy(searchParam.getLocation(), searchParam.getBusinessNature(), searchParam.getManufacturingProcess(), pageable);
 	}
 }
