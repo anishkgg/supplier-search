@@ -2,7 +2,7 @@ package com.makersharks.supplier.search.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,15 +14,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SearchParam {
 
-	@Nonnull
+	@NotNull(message = "location cannot be null")
 	@JsonProperty("location")
 	private String location;
 
-	@Nonnull
+	@NotNull(message = "nature of business cannot be null")
 	@JsonProperty("nature_of_business")
 	private String businessNature;
 
-	@Nonnull
+	@NotNull(message = "manufacturing process cannot be null")
 	@JsonProperty("manufacturing_process")
 	private String manufacturingProcess;
 }

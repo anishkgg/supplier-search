@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.makersharks.supplier.search.model.SearchParam;
 import com.makersharks.supplier.search.service.SupplierService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/supplier")
 public class SupplierController {
@@ -19,7 +21,7 @@ public class SupplierController {
 	private SupplierService supplierService;
 
 	@PostMapping("/query")
-	public ResponseEntity<Object> searchSuppliers(@RequestBody SearchParam searchParam, Pageable pageable) {
+	public ResponseEntity<Object> searchSuppliers(@Valid @RequestBody SearchParam searchParam, Pageable pageable) {
 		return supplierService.searchSuppliers(searchParam, pageable);
 	}
 }
