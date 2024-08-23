@@ -14,6 +14,7 @@ import com.makersharks.supplier.search.entity.Supplier;
 import com.makersharks.supplier.search.entity.SupplierManufacturingProcess;
 import com.makersharks.supplier.search.model.SearchParam;
 import com.makersharks.supplier.search.model.SupplierDTO;
+import com.makersharks.supplier.search.model.SupplierSearchResponse;
 import com.makersharks.supplier.search.repository.SupplierRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ public class SupplierService {
 	private SupplierRepository supplierRepository;
 
 	public ResponseEntity<Object> searchSuppliers(SearchParam searchParam, Pageable pageable) {
+		SupplierSearchResponse response = new SupplierSearchResponse();
 		try {
 			Page<Supplier> supplierPageResult = supplierRepository.findSuppliersBy(searchParam.getLocation(),
 					searchParam.getBusinessNature(), searchParam.getManufacturingProcess(), pageable);
@@ -33,8 +35,12 @@ public class SupplierService {
 			if (supplierPageResult == null) {
 				throw new Exception("resultset is null");
 			}
+			
+			response.setPageIndex(supplierPageResult.getNumber());
+			response.setPageSize(supplierPageResult.getSize());
+			response.setTotalPages(supplierPageResult.getTotalPages());
 
-			List<SupplierDTO> supplierDtoList = new ArrayList<>();
+			List<SupplierDTO> supplierList = new ArrayList<>();
 			for (Supplier supplier : supplierPageResult.getContent()) {
 				SupplierDTO supplierDto = new SupplierDTO();
 				supplierDto.setSupplierId(supplier.getSupplierId());
@@ -50,13 +56,16 @@ public class SupplierService {
 				}
 
 				supplierDto.setManufacturingProcesses(processNames);
-				supplierDtoList.add(supplierDto);
+				supplierList.add(supplierDto);
 			}
 
-			return ResponseEntity.ok(supplierDtoList);
+			response.setSuccess(true);
+			response.setSuppliers(supplierList);
+			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			log.error("Exception occurred in getting supplier list, error: ", e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+			response.setError(e.getMessage());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}
 	}
 }
