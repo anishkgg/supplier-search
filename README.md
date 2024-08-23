@@ -11,7 +11,6 @@ This project is a proof of concept (POC) for a supplier search API. It allows us
   - [Installation](#installation)
   - [Running the Application](#running-the-application)
 - [API Documentation](#api-documentation)
-- [Testing](#testing)	
 
 ### Project Overview
 
@@ -131,10 +130,3 @@ Before you begin, ensure you have the following installed on your machine:
 
 The API documentation is provided using Postman. Please click on the [link](https://documenter.getpostman.com/view/34551963/2sAXjDevky) to open the documentation. This will provide a detailed view of the available endpoints, request/response structures, and example usages.
 
-### Testing
-
-Unit tests are written using JUnit and Mockito. To run the tests, execute the following command:
-
-```bash
-mvn test
-```
